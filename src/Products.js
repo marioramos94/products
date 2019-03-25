@@ -4,7 +4,8 @@ export default class Products extends Component {
     super(props);
     this.state = {
       list: [],
-      text: ""
+      productName: "",
+      productPrice: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -15,13 +16,15 @@ export default class Products extends Component {
     e.preventDefault();
     this.setState(prevState => ({
       list: prevState.list.concat(this.state.text),
+
       text: ""
     }));
   }
 
   handleChange(e) {
     this.setState({
-      text: e.target.value
+      productName: e.target.value,
+      productPrice: e.target.value
     });
   }
 
@@ -36,7 +39,16 @@ export default class Products extends Component {
       <div>
         <h1>PRODUCT LIST</h1>
         <form onSubmit={this.handleSubmit}>
-          <input value={this.state.text} onChange={e => this.handleChange(e)} />
+          <input
+            value={this.state.text}
+            placeholder={"Product name"}
+            onChange={e => this.handleChange(e)}
+          />
+          <input
+            value={this.state.text}
+            placeholder={"Product price ($)"}
+            onChange={e => this.handleChange(e)}
+          />
           <button>Add</button>
           <ol>
             {this.state.list.map((item, index) => {
@@ -44,6 +56,7 @@ export default class Products extends Component {
                 <li key={index}>
                   {item}
                   <button onClick={() => this.removeItem(index)}>Delete</button>
+                  <button>Edit</button>
                 </li>
               );
             })}
